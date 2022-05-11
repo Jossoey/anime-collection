@@ -4,6 +4,7 @@ export const GET_ANIME = gql`
   {
     Page {
       media(sort: POPULARITY_DESC) {
+        id
         coverImage {
           large
         }
@@ -12,7 +13,6 @@ export const GET_ANIME = gql`
           english
           native
         }
-        id
       }
     }
   }

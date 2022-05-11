@@ -3,6 +3,7 @@ import { GET_ANIME } from "../gql/Query";
 
 function AnimeListPage() {
   const { loading, error, data } = useQuery(GET_ANIME);
+  console.log(data.Page.media);
 
   return (
     <div>
@@ -15,12 +16,13 @@ function AnimeListPage() {
         ) : (
           <div>
             {data.Page.media.map((anime) => {
-              return (
-                <div>
-                    <img src={anime.coverImage.large}></img>
-                  <p>{anime.title.english}</p>
-                </div>
-              );
+                return (
+                    // need to change to Anime.js and pass variables
+                    <div>
+                        <img src={anime.coverImage.large}></img>
+                        <p>{anime.title.english}</p>
+                    </div>
+                );
             })}
           </div>
         )}
