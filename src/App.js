@@ -5,23 +5,26 @@ import AnimeDetailPage from "./pages/AnimeDetail";
 import AnimeListPage from "./pages/AnimeList";
 import CollectionListPage from "./pages/CollectionList";
 import CollectionDetailPage from "./pages/CollectionDetail";
+import Layout from "./components/layout/Layout";
 
 function App() {
   return (
-    <Switch>
-      <Route path="/" exact>
-        <AnimeListPage />
-      </Route>
-      <Route path="/collection">
-        <CollectionListPage />
-      </Route>
-      <Route path="/anime/:id">
-        <AnimeDetailPage />
-      </Route>
-      <Route path="/collection/:id">
-        <CollectionDetailPage />
-      </Route>
-    </Switch>
+    <Layout>
+      <Switch>
+        <Route path="/" exact>
+          <AnimeListPage />
+        </Route>
+        <Route path="/collection">
+          <CollectionListPage />
+        </Route>
+        <Route path="/anime/:id">
+          <AnimeDetailPage />
+        </Route>
+        <Route path="/collection/:id">
+          <CollectionDetailPage />
+        </Route>
+      </Switch>
+    </Layout>
   );
 }
 

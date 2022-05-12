@@ -2,11 +2,11 @@ import { useQuery } from "@apollo/client";
 import { useState } from "react";
 import { GET_ANIME } from "../gql/Query";
 
-function AnimeListPage(at) {
+function AnimeListPage() {
   const perPage = 10;
 
   const [page, setPage] = useState(0);
-  const { loading, error, data } = useQuery(GET_ANIME, {variables: {perPage: perPage, page: page}});
+  const { loading, error, data } = useQuery(GET_ANIME, {variables: {perPage: perPage, page: page + 1}});
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
