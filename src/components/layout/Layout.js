@@ -1,11 +1,16 @@
 import MainNavigation from "./MainNavigation";
+import styled from "@emotion/styled";
+
+const Div = styled.div`
+  background-color: #2d2d2d;
+`;
 
 function Layout(props) {
   return (
-    <div>
+    <Div>
       <MainNavigation />
       <main>{props.children}</main>
-    </div>
+    </Div>
   );
 }
 

@@ -17,6 +17,8 @@ const GET_ANIME = gql`
         }
         title {
           english
+          native
+          userPreferred
         }
       }
     }

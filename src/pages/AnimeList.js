@@ -8,7 +8,7 @@ import styled from "@emotion/styled";
 
 const Main = styled.div`
   background-color: #2d2d2d;
-  padding: 32px;
+  padding: 30px;
   font-size: 24px;
   color: white;
 `;
@@ -26,16 +26,16 @@ const FlexDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: auto;
-  padding: auto;
+  margin: 2rem;
 `;
 
 const CenterP = styled.p`
   text-align: center;
   margin: 1rem 0px;
+  font-size: 20px;
 `;
 
-const CenterH1 = styled.h1`
+const CenterH2 = styled.h2`
   text-align: center;
   margin-top: 1rem;
 `;
@@ -77,7 +77,7 @@ function AnimeListPage() {
 
   return (
     <Main>
-      <CenterH1>List of Anime</CenterH1>
+      <CenterH2>List of Anime</CenterH2>
       <FlexDiv>
         {data.Page.media.map((anime) => {
           return (
@@ -94,7 +94,7 @@ function AnimeListPage() {
         <Button disabled={!page} onClick={() => setPage((prev) => prev - 1)}>
           &lt; Previous
         </Button>
-        <CenterP>Page {page + 1}</CenterP>
+        <CenterP >Page {page + 1}</CenterP>
         <Button onClick={() => setPage((prev) => prev + 1)}>Next &gt;</Button>
       </ButtonDiv>
     </Main>

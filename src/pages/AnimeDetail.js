@@ -8,8 +8,31 @@ import { GET_ONE_ANIME } from "../gql/Query";
 
 const ItalicP = styled.p`
   font-style: italic;
+  color: #a0adb2;
 `;
 
+const CenterDiv = styled.div`
+  margin: 2rem;
+  color: #ffffff;
+`;
+
+const ImageSizeUp = styled.img`
+  width: 100%;
+`;
+
+const ItalicSpan = styled.span`
+  font-style: italic;
+  color: #a0adb2;
+`;
+
+const DetailSpan = styled.span`
+  font-weight: 700;
+  color: #a0adb2;
+`;
+
+const Details = styled.div`
+  padding: 1rem 0;
+`;
 
 function AnimeDetailPage() {
   const { id } = useParams();
@@ -29,33 +52,52 @@ function AnimeDetailPage() {
     return (
       <p>
         {isReadMore ? text.slice(0, 200) : text}
-        <span onClick={toggleReadMore}>
-          {isReadMore ? "...read more" : " show less"}
-        </span>
+        <ItalicSpan onClick={toggleReadMore}>
+          {isReadMore ? "[ more ]" : "[ less ]"}
+        </ItalicSpan>
       </p>
     );
   };
 
   // console.log(data);
   return (
-    <div>
-      <img src={data.Media.coverImage.large}></img>
+    <CenterDiv>
+      <ImageSizeUp
+        src={data.Media.coverImage.large}
+        alt={data.Media.title.english}
+      ></ImageSizeUp>
       <div>
         <h2>{data.Media.title.english}</h2>
         <ItalicP>
           Other names: {data.Media.title.native} {" , "}
           {data.Media.title.userPreferred}
         </ItalicP>
-        <ReadMore>{data.Media.description}</ReadMore>
-        <div>
-          <p>Status: {data.Media.status}</p>
-          <p>Genre: {data.Media.genres.join(", ")}</p>
-          <p>Episodes: {data.Media.episodes}</p>
-          <p>Duration: {data.Media.duration} min/ep</p>
-          <p>Average score: {data.Media.averageScore / 10}</p>
-        </div>
+        <ReadMore>{data.Media.description }</ReadMore>
+        <Details>
+          <p>
+            <DetailSpan>Status : </DetailSpan>
+            {data.Media.status}
+          </p>
+          <p>
+            <DetailSpan>Genre : </DetailSpan>
+            {data.Media.genres.join(", ")}
+          </p>
+          <p>
+            <DetailSpan>Episodes : </DetailSpan>
+            {data.Media.episodes}
+          </p>
+          <p>
+            <DetailSpan>Duration : </DetailSpan>
+            {data.Media.duration} min/ep
+          </p>
+          <p>
+            <DetailSpan>Rating : </DetailSpan>
+            {data.Media.averageScore / 10}
+          </p>
+        </Details>
       </div>
-    </div>
+      <button>Add to collection</button>
+    </CenterDiv>
   );
 }
 
