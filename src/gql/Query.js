@@ -1,10 +1,7 @@
 import { gql } from "@apollo/client";
 
-export const GET_ANIME = gql`
-  query (
-    $page: Int
-    $perPage: Int
-  ) {
+const GET_ANIME = gql`
+  query ($page: Int, $perPage: Int) {
     Page(page: $page, perPage: $perPage) {
       pageInfo {
         total
@@ -13,17 +10,39 @@ export const GET_ANIME = gql`
         hasNextPage
         perPage
       }
-      media(sort: POPULARITY_DESC) {
+      media(sort: POPULARITY_DESC, type: ANIME) {
         id
         coverImage {
           large
         }
         title {
-          romaji
           english
-          native
         }
       }
     }
   }
 `;
+
+const GET_ONE_ANIME = gql`
+  query ($id: Int) {
+    Media(id: $id, type: ANIME) {
+      id
+      coverImage {
+        large
+      }
+      title {
+        english
+        native
+        userPreferred
+      }
+      description
+      episodes
+      averageScore
+      genres
+      status
+      duration
+    }
+  }
+`;
+
+export {GET_ANIME, GET_ONE_ANIME};

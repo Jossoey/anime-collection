@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
 
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 const Heading = styled("h2")`
-  background-color: ${(props) => props.bg};
+  background-color: #212121;
   padding: 2rem;
   margin: 0;
   position: sticky;
@@ -23,7 +22,7 @@ const NavLink = styled(Link)`
 
 function MainNavigation() {
   return (
-    <Heading bg="#212121">
+    <Heading>
       <NavLink to="/">Anime List</NavLink>
       <NavLink to="/collection">My Collection</NavLink>
     </Heading>

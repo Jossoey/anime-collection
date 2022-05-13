@@ -1,17 +1,14 @@
-import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+
+const CenterDiv = styled.div`
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+`;
 
 function Card(props) {
-  return (
-    <div
-      css={css`
-        margin: 1rem;
-        padding: 1rem;
-        background-color: grey;
-      `}
-    >
-      {props.children}
-    </div>
-  );
+  return <CenterDiv>{props.children}</CenterDiv>;
 }
 
 export default Card;

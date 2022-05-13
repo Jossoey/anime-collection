@@ -1,8 +1,6 @@
-import Card from "../ui/Card";
-
-function Anime(id, romaji, english, native, image) {
+function Anime() {
     return (
-      <Card>
+      <div>
         <div>
           <img src={image} alt={english} />
         </div>
@@ -10,7 +8,7 @@ function Anime(id, romaji, english, native, image) {
           <h3>{english}</h3>
           <h3>{native}</h3>
         </div>
-      </Card>
+      </div>
     );
 }
 
