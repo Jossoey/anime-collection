@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import './index.css';
 import App from './App';
+import { CollectionContextProvider } from './context/CollectionContext';
 
 const client = new ApolloClient({
   uri: "https://graphql.anilist.co",
@@ -15,8 +16,10 @@ const client = new ApolloClient({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ApolloProvider client={client}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <CollectionContextProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </CollectionContextProvider>
   </ApolloProvider>
 );
