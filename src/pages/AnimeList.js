@@ -38,6 +38,7 @@ const CenterP = styled.p`
 const CenterH2 = styled.h2`
   text-align: center;
   margin-top: 1rem;
+  font-size: 6vw;
 `;
 
 const ButtonDiv = styled.div`

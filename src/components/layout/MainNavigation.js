@@ -10,6 +10,7 @@ const Heading = styled("h2")`
   top: 0;
   z-index: 10;
   text-align: center;
+  font-size: 6vw;
 `;
 
 const NavLink = styled(Link)`

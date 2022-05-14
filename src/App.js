@@ -14,13 +14,13 @@ function App() {
         <Route path="/" exact>
           <AnimeListPage />
         </Route>
-        <Route path="/collection">
+        <Route path="/collection" exact>
           <CollectionListPage />
         </Route>
         <Route path="/anime/:id">
           <AnimeDetailPage />
         </Route>
-        <Route path="/collection/:id">
+        <Route path="/collection/:name">
           <CollectionDetailPage />
         </Route>
       </Switch>

@@ -34,6 +34,22 @@ const Details = styled.div`
   padding: 1rem 0;
 `;
 
+const Button = styled.button`
+  font-size: 4vw;
+  text-decoration: none;
+  color: white;
+  background-color: #212121;
+  border: none;
+  padding: 7px;
+  width: 70%;
+  margin-bottom: 2rem;
+  align-self: flex-end;
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+`;
+
 function AnimeDetailPage() {
   const { id } = useParams();
   const { loading, error, data } = useQuery(GET_ONE_ANIME, {
@@ -96,7 +112,7 @@ function AnimeDetailPage() {
           </p>
         </Details>
       </div>
-      <button>Add to collection</button>
+      <Button>Add to collection</Button>
     </CenterDiv>
   );
 }
