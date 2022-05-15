@@ -19,7 +19,7 @@ export function CollectionContextProvider(props) {
       return localData;
     });
 
-    function addCollectionHandle(collectionName, e) {
+    function addCollectionHandle(collectionName) {
       setAnimeCollection((prevCollection) => {
         if (!prevCollection.collection.some((item) => item.name === collectionName) && !format.test(collectionName)) {
           prevCollection.collection.push({
@@ -33,7 +33,6 @@ export function CollectionContextProvider(props) {
           );
         } else {
           alert("Collection name invalid");
-          e.preventDefault();
         }
         return prevCollection;
       });

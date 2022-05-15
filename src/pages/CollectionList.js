@@ -1,8 +1,8 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CollectionContext from "../context/CollectionContext";
-import { useState } from "react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
+import RemoveCollectionModal from "../components/ui/RemoveCollectionModal";
 
 const Main = styled.div`
   background-color: #2d2d2d;
@@ -66,11 +66,13 @@ const Image = styled.img`
 function CollectionListPage() {
   const collections = useContext(CollectionContext);
   const [value, setValue] = useState("");
+  const [openModal, setOpenModal] = useState(false);
 
   let content;
 
   const clickHandle = (e) => {
-    collections.context.addCollection(value, e);
+    e.preventDefault();
+    collections.context.addCollection(value);
   };
 
   if (collections.context.totalCollection === 0) {
@@ -83,15 +85,27 @@ function CollectionListPage() {
     <Main>
       <CenterH2>List of Collection</CenterH2>
       {content.map((collection) => {
-          return (
-            <StyleLink
-              key={collection.name}
-              to={`/collection/${collection.name}`}
-            >
-              <H3>{collection.name}</H3>
+        return (
+          <div key={collection.name}>
+            <div>
+              <StyleLink to={`/collection/${collection.name}`}>
+                <H3>{collection.name}</H3>
+              </StyleLink>
+              <button>Rename</button>
+              <button
+                onClick={() => {
+                  setOpenModal(true);
+                }}
+              >
+                Remove
+              </button>
+            </div>
+            <StyleLink to={`/collection/${collection.name}`}>
               <Image src={collection.img} alt={collection.name} />
             </StyleLink>
-          );
+            {openModal && <RemoveCollectionModal closeModal={ setOpenModal } collectionName={collection.name}/>}
+          </div>
+        );
       })}
       <Form>
         <Input
