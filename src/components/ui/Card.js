@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 const CenterDiv = styled.div`
-  margin: 1rem auto;
+  margin: 10px auto;
   display: flex;
   flex-direction: column;
   width: 300px;
