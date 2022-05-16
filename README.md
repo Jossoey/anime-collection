@@ -44,6 +44,8 @@ Project link: https://popularanimelist.netlify.app/
 - The anime only shows the banner and title that are clickable to direct user to anime detail page
 - User can also remove the specific anime from the current collection
 
+
+
 *Note: *
 - *Collection name is unique and doesn't have special character*
 - *Pages are updated without a page reload after adding or removing element from the list*
