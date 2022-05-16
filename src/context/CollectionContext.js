@@ -7,9 +7,10 @@ const CollectionContext = createContext({
   removeCollection: (collectionName) => {},
   changeCollectionName: (collectionName) => {},
   addToCollection: (collectionName, anime) => {},
+  removeFromCollection: (collectionName, anime) => {},
 });
 
-const format = /[`!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/;
+const format = /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/;
 
 export function CollectionContextProvider(props) {
   const [animeCollection, setAnimeCollection] = useState(() => {
@@ -76,17 +77,38 @@ export function CollectionContextProvider(props) {
     setAnimeCollection((prevCollection) => {
       prevCollection.collection.map((item) => {
         if (item.name === collectionName) {
-          return {name: oneCollection.name, img: oneCollection.img, anime: oneCollection.anime};
+          return {
+            name: oneCollection.name,
+            img: oneCollection.img,
+            anime: oneCollection.anime,
+          };
         }
         return item;
       });
       return prevCollection;
     });
-
     localStorage.setItem("animeCollection", JSON.stringify(animeCollection));
+  }
 
-    console.log(oneCollection);
-    console.log(anime);
+  function removeFromCollectionHandle(collectionName, animeId) {
+    const oneCollection = animeCollection.collection.find(
+      (item) => item.name === collectionName
+    );
+
+    const updatedAnime = oneCollection.anime.filter(
+      (anime) => anime.id !== animeId
+    );
+
+    setAnimeCollection((prevCollection) => {
+      prevCollection.collection.map((item) => {
+        if (item.name === collectionName) {
+          item.anime = updatedAnime;
+        }
+        return item;
+      });
+      return prevCollection;
+    });
+    localStorage.setItem("animeCollection", JSON.stringify(animeCollection));
   }
 
   const context = {
@@ -96,6 +118,7 @@ export function CollectionContextProvider(props) {
     removeCollection: removeCollectionHandle,
     changeCollectionName: changeCollectionNameHandle,
     addToCollection: addToCollectionHandle,
+    removeFromCollection: removeFromCollectionHandle,
   };
 
   return (

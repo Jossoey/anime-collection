@@ -1,6 +1,8 @@
 import { useParams, Link } from "react-router-dom";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import Card from "../components/ui/Card";
+import RemoveFromCollectionModal from "../components/ui/RemoveFromCollectionModal";
 
 const TitleLink = styled(Link)`
   text-decoration: none;
@@ -64,7 +66,9 @@ const Button = styled.button`
 
 function CollectionDetailPage() {
   const { name } = useParams();
+  const [openModal, setOpenModal] = useState(false);
   const localData = JSON.parse(localStorage.getItem("animeCollection"));
+  const [currentAnime, setCurrentAnime] = useState(0);
 
   const collection = localData.collection.filter((item) => {
     return item.name === name;
@@ -94,12 +98,26 @@ function CollectionDetailPage() {
                 <TitleLink to={`/anime/${anime.id}`}>
                   <P>{anime.title.english}</P>
                 </TitleLink>
-                <Button>Remove</Button>
+                <Button
+                  onClick={() => {
+                    setOpenModal(true);
+                    setCurrentAnime(anime);
+                  }}
+                >
+                  Remove
+                </Button>
               </Footer>
             </Card>
           </Container>
         );
       })}
+      {openModal && (
+        <RemoveFromCollectionModal
+          closeModal={setOpenModal}
+          collectionName={collection.name}
+          anime={currentAnime}
+        />
+      )}
     </Main>
   );
 }

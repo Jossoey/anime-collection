@@ -17,13 +17,11 @@ const Background = styled.div`
 const Container = styled.div`
   width: 300px;
   height: auto;
-  max-height: 65vh;
   background-color: #2d2d2d;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: flex;
   flex-direction: column;
   padding: 20px;
-  overflow: scroll;
 `;
 
 const CloseBtn = styled.div`
@@ -39,44 +37,40 @@ const Close = styled.button`
   font-size: 20px;
 `;
 
-const ButtonGroup = styled.div`
+const Text = styled.div`
   display: inline-block;
   padding: 10px;
   text-align: center;
-  margin-top: 10px;
 `;
 
-const CollectionButton = styled.button`
-  font-size: 4vw;
-  text-decoration: none;
+const Footer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0 20px 0;
+  gap: 15px;
+`;
+
+const Button = styled.div`
+  font-size: 20px;
   color: white;
-  background-color: #212121;
+  background-color: ${(props) => props.color};
   border: none;
-  padding: 10px;
-  width: 85%;
-  margin-bottom: 15px;
-  align-self: flex-end;
+  text-decoration: none;
+  padding: 10px 15px;
   &:hover {
     background-color: white;
     color: black;
   }
 `;
 
-function AddToCollectionModal({ closeModal, anime }) {
+function RemoveFromCollectionModal({ closeModal, collectionName, anime }) {
   const collections = useContext(CollectionContext);
 
-  const addToHandle = (collectionName) => {
-    collections.context.addToCollection(collectionName, anime);
+  const removeHandle = () => {
+    collections.context.removeFromCollection(collectionName, anime.id);
     closeModal(false);
   };
-
-  let content;
-
-  if (collections.context.totalCollection === 0) {
-    content = [];
-  } else {
-    content = collections.context.animeCollection.collection;
-  }
 
   return (
     <Background>
@@ -90,17 +84,25 @@ function AddToCollectionModal({ closeModal, anime }) {
             X
           </Close>
         </CloseBtn>
-        <ButtonGroup>
-          {content.map((collection) => {
-            return (
-            <CollectionButton key={collection.name} onClick={() => {addToHandle(collection.name)}}>
-              {collection.name}
-            </CollectionButton>);
-          })}
-        </ButtonGroup>
+        <Text>
+          <h4>Remove "{anime.title.english}" from the collection ?</h4>
+        </Text>
+        <Footer>
+          <Button
+            color="#9b0000"
+            onClick={() => {
+              closeModal(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button color="#212121" onClick={removeHandle}>
+            Continue
+          </Button>
+        </Footer>
       </Container>
     </Background>
   );
 }
 
-export default AddToCollectionModal;
+export default RemoveFromCollectionModal;
