@@ -11,6 +11,13 @@ const Main = styled.div`
   color: white;
 `;
 
+const Title = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const CenterH2 = styled.h2`
   text-align: center;
   margin-top: 1rem;
@@ -51,6 +58,12 @@ const Button = styled.button`
   }
 `;
 
+const RButton = styled(Button)`
+  width: auto;
+  padding: 7px 10px;
+  margin: 0px 0px 0px 7px;
+`;
+
 const StyleLink = styled(Link)`
   text-decoration: none;
   color: #ffffff;
@@ -74,6 +87,8 @@ function CollectionListPage() {
   const clickHandle = (e) => {
     e.preventDefault();
     collections.context.addCollection(value);
+    setValue("");
+    document.getElementById('input').value = "";
   };
 
   if (collections.context.totalCollection === 0) {
@@ -85,23 +100,35 @@ function CollectionListPage() {
   return (
     <Main>
       <CenterH2>List of Collection</CenterH2>
+      <Form>
+        <Input
+          type="text"
+          id="input"
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
+        />
+        <Button onClick={clickHandle}>Add new collection</Button>
+      </Form>
       {content.map((collection) => {
         return (
           <div key={collection.name}>
-            <div>
+            <Title>
               <StyleLink to={`/collection/${collection.name}`}>
                 <H3>{collection.name}</H3>
               </StyleLink>
-              <button>Rename</button>
-              <button
-                onClick={() => {
-                  setOpenModal(true);
-                  setCurrentCollectionName(collection.name);
-                }}
-              >
-                Remove
-              </button>
-            </div>
+              <div>
+                <RButton>Rename</RButton>
+                <RButton
+                  onClick={() => {
+                    setOpenModal(true);
+                    setCurrentCollectionName(collection.name);
+                  }}
+                >
+                  Remove
+                </RButton>
+              </div>
+            </Title>
             <StyleLink to={`/collection/${collection.name}`}>
               <Image src={collection.img} alt={collection.name} />
             </StyleLink>
@@ -114,15 +141,6 @@ function CollectionListPage() {
           collectionName={currentCollectionName}
         />
       )}
-      <Form>
-        <Input
-          type="text"
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-        />
-        <Button onClick={clickHandle}>Add new collection</Button>
-      </Form>
     </Main>
   );
 }

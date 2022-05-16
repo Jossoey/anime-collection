@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import CollectionContext from "../../context/CollectionContext";
 
 const Background = styled.div`
@@ -37,40 +38,44 @@ const Close = styled.button`
   font-size: 20px;
 `;
 
-const Text = styled.div`
+const ButtonGroup = styled.div`
   display: inline-block;
   padding: 10px;
   text-align: center;
+  margin-top: 10px;
 `;
 
-const Footer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 0 20px 0;
-  gap: 15px;
-`;
-
-const Button = styled.div`
-  font-size: 20px;
-  color: white;
-  background-color: ${(props) => props.color};
-  border: none;
+const CollectionButton = styled.button`
+  font-size: 4vw;
   text-decoration: none;
-  padding: 10px 15px;
+  color: white;
+  background-color: #212121;
+  border: none;
+  padding: 10px;
+  width: 85%;
+  margin-bottom: 15px;
+  align-self: flex-end;
   &:hover {
     background-color: white;
     color: black;
   }
 `;
 
-function RemoveCollectionModal({ closeModal, collectionName }) {
+function AddToCollectionModal({ closeModal, anime }) {
   const collections = useContext(CollectionContext);
 
-  const removeHandle = () => {
-    collections.context.removeCollection(collectionName);
+  const addToHandle = (collectionName) => {
+    collections.context.addToCollection(collectionName, anime);
     closeModal(false);
   };
+
+  let content;
+
+  if (collections.context.totalCollection === 0) {
+    content = [];
+  } else {
+    content = collections.context.animeCollection.collection;
+  }
 
   return (
     <Background>
@@ -84,25 +89,17 @@ function RemoveCollectionModal({ closeModal, collectionName }) {
             X
           </Close>
         </CloseBtn>
-        <Text>
-          <h4>Remove collection "{collectionName}" ?</h4>
-        </Text>
-        <Footer>
-          <Button
-            color="#9b0000"
-            onClick={() => {
-              closeModal(false);
-            }}
-          >
-            Cancel
-          </Button>
-          <Button color="#212121" onClick={removeHandle}>
-            Continue
-          </Button>
-        </Footer>
+        <ButtonGroup>
+          {content.map((collection) => {
+            return (
+            <CollectionButton key={collection.name} onClick={() => {addToHandle(collection.name)}}>
+              {collection.name}
+            </CollectionButton>);
+          })}
+        </ButtonGroup>
       </Container>
     </Background>
   );
 }
 
-export default RemoveCollectionModal;
+export default AddToCollectionModal;

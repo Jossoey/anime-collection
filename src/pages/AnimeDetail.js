@@ -5,6 +5,7 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 
 import { GET_ONE_ANIME } from "../gql/Query";
+import AddToCollectionModal from "../components/ui/AddToCollectionModal";
 
 const ItalicP = styled.p`
   font-style: italic;
@@ -52,6 +53,7 @@ const Button = styled.button`
 
 function AnimeDetailPage() {
   const { id } = useParams();
+  const [openModal, setOpenModal] = useState(false);
   const { loading, error, data } = useQuery(GET_ONE_ANIME, {
     variables: { id: id },
   });
@@ -88,7 +90,7 @@ function AnimeDetailPage() {
           Other names: {data.Media.title.native} {" , "}
           {data.Media.title.userPreferred}
         </ItalicP>
-        <ReadMore>{data.Media.description }</ReadMore>
+        <ReadMore>{data.Media.description}</ReadMore>
         <Details>
           <p>
             <DetailSpan>Status : </DetailSpan>
@@ -110,9 +112,19 @@ function AnimeDetailPage() {
             <DetailSpan>Rating : </DetailSpan>
             {data.Media.averageScore / 10}
           </p>
+          <p>
+            <DetailSpan>Collections : </DetailSpan>
+            ...
+          </p>
         </Details>
       </div>
-      <Button>Add to collection</Button>
+      <Button onClick={() => setOpenModal(true)}>Add to collection</Button>
+      {openModal && (
+        <AddToCollectionModal
+          closeModal={setOpenModal}
+          anime={data.Media}
+        />
+      )}
     </CenterDiv>
   );
 }
