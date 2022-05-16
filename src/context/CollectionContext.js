@@ -39,7 +39,14 @@ export function CollectionContextProvider(props) {
     }
 
     function removeCollectionHandle(collectionName) {
-      console.log(collectionName);
+      const updatedCollection = animeCollection.collection.filter(
+        (item) => item.name !== collectionName
+      );
+      setAnimeCollection((prevCollection) => {
+        prevCollection.collection = updatedCollection;
+        return prevCollection;
+      });
+      localStorage.setItem("animeCollection", JSON.stringify(animeCollection));
     }
 
     function changeCollectionNameHandle(collectionName) {

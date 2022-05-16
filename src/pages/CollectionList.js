@@ -67,6 +67,7 @@ function CollectionListPage() {
   const collections = useContext(CollectionContext);
   const [value, setValue] = useState("");
   const [openModal, setOpenModal] = useState(false);
+  const [currentCollectionName, setCurrentCollectionName] = useState("");
 
   let content;
 
@@ -95,6 +96,7 @@ function CollectionListPage() {
               <button
                 onClick={() => {
                   setOpenModal(true);
+                  setCurrentCollectionName(collection.name);
                 }}
               >
                 Remove
@@ -103,10 +105,15 @@ function CollectionListPage() {
             <StyleLink to={`/collection/${collection.name}`}>
               <Image src={collection.img} alt={collection.name} />
             </StyleLink>
-            {openModal && <RemoveCollectionModal closeModal={ setOpenModal } collectionName={collection.name}/>}
           </div>
         );
       })}
+      {openModal && (
+        <RemoveCollectionModal
+          closeModal={setOpenModal}
+          collectionName={currentCollectionName}
+        />
+      )}
       <Form>
         <Input
           type="text"

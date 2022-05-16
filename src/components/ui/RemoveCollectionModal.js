@@ -68,6 +68,7 @@ function RemoveCollectionModal({ closeModal, collectionName }) {
 
   const removeHandle = () => {
     collections.context.removeCollection(collectionName);
+    closeModal(false);
   };
 
   return (
