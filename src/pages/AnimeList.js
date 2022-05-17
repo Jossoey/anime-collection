@@ -65,6 +65,11 @@ const Button = styled.button`
   }
 `;
 
+const Image = styled.img`
+  width: 300px;
+  height: auto;
+`;
+
 function AnimeListPage() {
   const perPage = 10;
 
@@ -84,7 +89,7 @@ function AnimeListPage() {
           return (
             <TitleLink key={anime.id} to={`/anime/${anime.id}`}>
               <Card>
-                <img src={anime.coverImage.large} alt={anime.title.english} />
+                <Image src={anime.coverImage.large} alt={anime.title.english} />
                 <CenterP>{anime.title.english}</CenterP>
               </Card>
             </TitleLink>
