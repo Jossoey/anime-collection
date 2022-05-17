@@ -34,6 +34,8 @@ const CenterH2 = styled.h2`
 const H3 = styled.h2`
   margin: 1rem 0;
   font-size: 5.5vw;
+  max-width: 250px;
+  overflow-wrap: break-word;
 `;
 
 const Button = styled.button`

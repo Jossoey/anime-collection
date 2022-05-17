@@ -45,6 +45,7 @@ const Text = styled.div`
 
 const H4 = styled.h4`
   font-size: 5vw;
+  overflow-wrap: break-word;
 `;
 
 const Footer = styled.div`

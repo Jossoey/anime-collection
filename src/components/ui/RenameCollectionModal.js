@@ -73,6 +73,7 @@ const Button = styled.button`
 
 const H3 = styled.h2`
   font-size: 5.5vw;
+  overflow-wrap: break-word;
 `;
 
 function RenameCollectionModal({ closeModal, collectionName }) {

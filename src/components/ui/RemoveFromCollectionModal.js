@@ -64,6 +64,10 @@ const Button = styled.div`
   }
 `;
 
+const H4 = styled.h4`
+  overflow-wrap: break-word;
+`;
+
 function RemoveFromCollectionModal({ closeModal, collectionName, anime }) {
   const collections = useContext(CollectionContext);
 
@@ -85,7 +89,7 @@ function RemoveFromCollectionModal({ closeModal, collectionName, anime }) {
           </Close>
         </CloseBtn>
         <Text>
-          <h4>Remove "{anime.title.english}" from the collection ?</h4>
+          <H4>Remove "{anime.title.english}" from the collection ?</H4>
         </Text>
         <Footer>
           <Button
