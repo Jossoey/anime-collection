@@ -81,7 +81,7 @@ function RenameCollectionModal({ closeModal, collectionName }) {
 
   const clickHandle = (e) => {
     e.preventDefault();
-    collections.context.changeCollectionName(value);
+    collections.context.changeCollectionName(collectionName, value);
     setValue("");
     document.getElementById("input").value = "";
     closeModal(false);

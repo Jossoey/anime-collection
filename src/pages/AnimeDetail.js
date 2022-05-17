@@ -1,8 +1,10 @@
 import { useQuery } from "@apollo/client";
 import Loading from "../components/Loading";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState , useContext } from "react";
 import styled from "@emotion/styled";
+
+import CollectionContext from "../context/CollectionContext";
 
 import { GET_ONE_ANIME } from "../gql/Query";
 import AddToCollectionModal from "../components/ui/AddToCollectionModal";
@@ -54,9 +56,13 @@ const Button = styled.button`
 function AnimeDetailPage() {
   const { id } = useParams();
   const [openModal, setOpenModal] = useState(false);
+  const [collection, setCollection] = useState([]);
+  const collections = useContext(CollectionContext);
   const { loading, error, data } = useQuery(GET_ONE_ANIME, {
     variables: { id: id },
   });
+
+  console.log(collections.context.animeCollection);
 
   if (loading) return <Loading />;
   if (error) return <p>{error.message}</p>;

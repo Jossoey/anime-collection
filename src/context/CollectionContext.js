@@ -38,7 +38,7 @@ export function CollectionContextProvider(props) {
           JSON.stringify(animeCollection)
         );
       } else {
-        alert("Collection name invalid");
+        alert("Please enter a different collection name");
       }
       return prevCollection;
     });
@@ -55,8 +55,27 @@ export function CollectionContextProvider(props) {
     localStorage.setItem("animeCollection", JSON.stringify(animeCollection));
   }
 
-  function changeCollectionNameHandle(collectionName) {
-    console.log(collectionName);
+  function changeCollectionNameHandle(collectionName, newName) {
+    setAnimeCollection((prevCollection) => {
+      if (
+        !prevCollection.collection.some((item) => item.name === newName) &&
+        !format.test(newName)
+      ) {
+        prevCollection.collection.map((item) => {
+          if (item.name === collectionName) {
+            item.name = newName;
+          }
+          return item;
+        });
+        localStorage.setItem(
+          "animeCollection",
+          JSON.stringify(animeCollection)
+        );
+      } else {
+        alert("Please enter a different collection name");
+      }
+      return prevCollection;
+    });
   }
 
   function addToCollectionHandle(collectionName, anime) {
