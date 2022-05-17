@@ -3,6 +3,8 @@ import CollectionContext from "../context/CollectionContext";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import RemoveCollectionModal from "../components/ui/RemoveCollectionModal";
+import AddCollectionModal from "../components/ui/AddCollectionModal";
+import RenameCollectionModal from "../components/ui/RenameCollectionModal";
 
 const Main = styled.div`
   background-color: #2d2d2d;
@@ -18,6 +20,11 @@ const Title = styled.div`
   justify-content: space-between;
 `;
 
+const CenterDiv = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const CenterH2 = styled.h2`
   text-align: center;
   margin-top: 1rem;
@@ -27,20 +34,6 @@ const CenterH2 = styled.h2`
 const H3 = styled.h2`
   margin: 1rem 0;
   font-size: 5.5vw;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 3rem;
-`;
-
-const Input = styled.input`
-  font-size: 4.5vw;
-  padding: 5px 7px;
-  display: inline-block;
 `;
 
 const Button = styled.button`
@@ -78,18 +71,12 @@ const Image = styled.img`
 
 function CollectionListPage() {
   const collections = useContext(CollectionContext);
-  const [value, setValue] = useState("");
-  const [openModal, setOpenModal] = useState(false);
+  const [openRemoveModal, setOpenRemoveModal] = useState(false);
+  const [openAddModal, setOpenAddModal] = useState(false);
+  const [openRenameModal, setOpenRenameModal] = useState(false);
   const [currentCollectionName, setCurrentCollectionName] = useState("");
 
   let content;
-
-  const clickHandle = (e) => {
-    e.preventDefault();
-    collections.context.addCollection(value);
-    setValue("");
-    document.getElementById('input').value = "";
-  };
 
   if (collections.context.totalCollection === 0) {
     content = [];
@@ -100,16 +87,11 @@ function CollectionListPage() {
   return (
     <Main>
       <CenterH2>List of Collection</CenterH2>
-      <Form>
-        <Input
-          type="text"
-          id="input"
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-        />
-        <Button onClick={clickHandle}>Add new collection</Button>
-      </Form>
+      <CenterDiv>
+        <Button onClick={() => setOpenAddModal(true)}>
+          Add new collection
+        </Button>
+      </CenterDiv>
       {content.map((collection) => {
         return (
           <div key={collection.name}>
@@ -118,10 +100,17 @@ function CollectionListPage() {
                 <H3>{collection.name}</H3>
               </StyleLink>
               <div>
-                <RButton>Rename</RButton>
                 <RButton
                   onClick={() => {
-                    setOpenModal(true);
+                    setOpenRenameModal(true);
+                    setCurrentCollectionName(collection.name);
+                  }}
+                >
+                  Rename
+                </RButton>
+                <RButton
+                  onClick={() => {
+                    setOpenRemoveModal(true);
                     setCurrentCollectionName(collection.name);
                   }}
                 >
@@ -135,9 +124,21 @@ function CollectionListPage() {
           </div>
         );
       })}
-      {openModal && (
+      {openRemoveModal && (
         <RemoveCollectionModal
-          closeModal={setOpenModal}
+          closeModal={setOpenRemoveModal}
+          collectionName={currentCollectionName}
+        />
+      )}
+      {openAddModal && (
+        <AddCollectionModal
+          closeModal={setOpenAddModal}
+          collectionName={currentCollectionName}
+        />
+      )}
+      {openRenameModal && (
+        <RenameCollectionModal
+          closeModal={setOpenRenameModal}
           collectionName={currentCollectionName}
         />
       )}

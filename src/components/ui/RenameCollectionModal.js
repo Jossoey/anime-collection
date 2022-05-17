@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CollectionContext from "../../context/CollectionContext";
 
 const Background = styled.div`
@@ -43,36 +43,47 @@ const Text = styled.div`
   text-align: center;
 `;
 
-const H4 = styled.h4`
-  font-size: 5vw;
-`;
-
-const Footer = styled.div`
+const Form = styled.form`
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
   justify-content: center;
-  align-items: center;
-  margin: 10px 0 20px 0;
-  gap: 15px;
 `;
 
-const Button = styled.div`
-  font-size: 20px;
-  color: white;
-  background-color: ${(props) => props.color};
-  border: none;
+const Input = styled.input`
+  font-size: 4.5vw;
+  padding: 5px 7px;
+  display: inline-block;
+`;
+
+const Button = styled.button`
+  font-size: 4vw;
   text-decoration: none;
-  padding: 10px 15px;
+  color: white;
+  background-color: #212121;
+  border: none;
+  padding: 7px;
+  width: 70%;
+  align-self: flex-end;
   &:hover {
     background-color: white;
     color: black;
   }
 `;
 
-function RemoveCollectionModal({ closeModal, collectionName }) {
-  const collections = useContext(CollectionContext);
+const H3 = styled.h2`
+  font-size: 5.5vw;
+`;
 
-  const removeHandle = () => {
-    collections.context.removeCollection(collectionName);
+function RenameCollectionModal({ closeModal, collectionName }) {
+  const collections = useContext(CollectionContext);
+  const [value, setValue] = useState("");
+
+  const clickHandle = (e) => {
+    e.preventDefault();
+    collections.context.changeCollectionName(value);
+    setValue("");
+    document.getElementById("input").value = "";
     closeModal(false);
   };
 
@@ -89,24 +100,21 @@ function RemoveCollectionModal({ closeModal, collectionName }) {
           </Close>
         </CloseBtn>
         <Text>
-          <H4>Remove collection "{collectionName}" ?</H4>
+          <Form>
+            <H3>Enter collection name for "{collectionName}"</H3>
+            <Input
+              type="text"
+              id="input"
+              onChange={(e) => {
+                setValue(e.target.value);
+              }}
+            />
+            <Button onClick={clickHandle}>Rename Collection</Button>
+          </Form>
         </Text>
-        <Footer>
-          <Button
-            color="#9b0000"
-            onClick={() => {
-              closeModal(false);
-            }}
-          >
-            Cancel
-          </Button>
-          <Button color="#212121" onClick={removeHandle}>
-            Continue
-          </Button>
-        </Footer>
       </Container>
     </Background>
   );
 }
 
-export default RemoveCollectionModal;
+export default RenameCollectionModal;
