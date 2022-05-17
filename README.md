@@ -38,6 +38,7 @@ Project link: https://popularanimelist.netlify.app/
 - Collection has a default picture if there is no anime in the collection
 - User can also remove collection from this page by clicking the remove button on the side of the collection name
 - User can also add a new collection with default profile picture and name from this page
+- User can rename the existing collection as long as it follows the rules of naming the collection
 
 #### Collection Detail Page: 
 - User can see the list of anime that is already added in this collection
