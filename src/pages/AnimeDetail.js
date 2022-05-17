@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import Loading from "../components/Loading";
-import { useParams } from "react-router-dom";
-import { useState , useContext } from "react";
+import { useParams , Link } from "react-router-dom";
+import { useState, useContext } from "react";
 import styled from "@emotion/styled";
 
 import CollectionContext from "../context/CollectionContext";
@@ -53,16 +53,24 @@ const Button = styled.button`
   }
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #ffffff;
+  font-style: italic;
+  margin: 0 5px;
+  border-bottom: 2px solid #ffffff;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 function AnimeDetailPage() {
   const { id } = useParams();
   const [openModal, setOpenModal] = useState(false);
-  const [collection, setCollection] = useState([]);
   const collections = useContext(CollectionContext);
   const { loading, error, data } = useQuery(GET_ONE_ANIME, {
     variables: { id: id },
   });
-
-  console.log(collections.context.animeCollection);
 
   if (loading) return <Loading />;
   if (error) return <p>{error.message}</p>;
@@ -83,7 +91,17 @@ function AnimeDetailPage() {
     );
   };
 
-  // console.log(data);
+  const allCollection = collections.context.animeCollection.collection;
+
+  let belongsTo = [];
+  for (let i = 0; i < allCollection.length; i++) {
+    for (let j = 0; j < allCollection[i].anime.length; j++) {
+      if (allCollection[i].anime[j].id === data.Media.id) {
+        belongsTo.push(allCollection[i]);
+      }
+    }
+  }
+
   return (
     <CenterDiv>
       <ImageSizeUp
@@ -120,16 +138,22 @@ function AnimeDetailPage() {
           </p>
           <p>
             <DetailSpan>Collections : </DetailSpan>
-            ...
+            {belongsTo.map((collection) => {
+              return (
+                <StyledLink
+                  to={`/collection/${collection.name}`}
+                  key={collection.name}
+                >
+                  {collection.name}
+                </StyledLink>
+              );
+            })}
           </p>
         </Details>
       </div>
       <Button onClick={() => setOpenModal(true)}>Add to collection</Button>
       {openModal && (
-        <AddToCollectionModal
-          closeModal={setOpenModal}
-          anime={data.Media}
-        />
+        <AddToCollectionModal closeModal={setOpenModal} anime={data.Media} />
       )}
     </CenterDiv>
   );
