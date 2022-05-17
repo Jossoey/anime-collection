@@ -1,6 +1,6 @@
 # Anime Collection Project
 
-An anime list that allows user to see a list of 10 animes per page and click on each one of them to see the details of those anime. User can also have a collection that can be created through my collection page. Besides creating a new collection, user can also remove an existing collection. Clicking in one of the collection will direct user into the collection detail page where user can see all of the animes that has been added to the collection from the anime detail page. From this page, user can remove the specific anime that they no longer want to be on the list. 
+An anime list that allows user to see a list of 10 animes per page and click on each one of them to see the details of those anime. User can also have a collection that can be created through my collection page. Besides creating a new collection, user can also remove an existing collection. Clicking in one of the collection will direct user into the collection detail page where user can see all of the animes that has been added to the collection from the anime detail page. From this page, user can remove the specific anime that they no longer want to be on the list. The deployed web-application is only compatible for mobile view right now and will be further improved. 
 
 Project link: https://popularanimelist.netlify.app/
 
@@ -44,10 +44,12 @@ Project link: https://popularanimelist.netlify.app/
 - The anime only shows the banner and title that are clickable to direct user to anime detail page
 - User can also remove the specific anime from the current collection
 
-
+<br />
 
 *Note: *
 - *Collection name is unique and doesn't have special character*
 - *Pages are updated without a page reload after adding or removing element from the list*
+
+
 
 
