@@ -20,7 +20,7 @@ const Main = styled.div`
 `;
 
 const Container = styled.div`
-  margin-bottom: 25px;
+  padding-bottom: 20px;
 `;
 
 const P = styled.p`

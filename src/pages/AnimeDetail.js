@@ -8,6 +8,7 @@ import CollectionContext from "../context/CollectionContext";
 
 import { GET_ONE_ANIME } from "../gql/Query";
 import AddToCollectionModal from "../components/ui/AddToCollectionModal";
+import AddCollectionModal from "../components/ui/AddCollectionModal";
 
 const ItalicP = styled.p`
   font-style: italic;
@@ -66,7 +67,8 @@ const StyledLink = styled(Link)`
 
 function AnimeDetailPage() {
   const { id } = useParams();
-  const [openModal, setOpenModal] = useState(false);
+  const [openCollectionModal, setOpenCollectionModal] = useState(false);
+  const [openAddModal, setOpenAddModal] = useState(false);
   const collections = useContext(CollectionContext);
   const { loading, error, data } = useQuery(GET_ONE_ANIME, {
     variables: { id: id },
@@ -151,10 +153,11 @@ function AnimeDetailPage() {
           </p>
         </Details>
       </div>
-      <Button onClick={() => setOpenModal(true)}>Add to collection</Button>
-      {openModal && (
-        <AddToCollectionModal closeModal={setOpenModal} anime={data.Media} />
+      <Button onClick={() => {allCollection.length ? setOpenCollectionModal(true) : setOpenAddModal(true)}}>Add to collection</Button>
+      {openCollectionModal && (
+        <AddToCollectionModal closeModal={setOpenCollectionModal} anime={data.Media} />
       )}
+      {openAddModal && <AddCollectionModal closeModal={setOpenAddModal} />}
     </CenterDiv>
   );
 }

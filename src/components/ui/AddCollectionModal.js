@@ -75,7 +75,7 @@ const H3 = styled.h2`
   font-size: 5.5vw;
 `;
 
-function AddCollectionModal({ closeModal, collectionName }) {
+function AddCollectionModal({ closeModal }) {
   const collections = useContext(CollectionContext);
   const [value, setValue] = useState("");
 
